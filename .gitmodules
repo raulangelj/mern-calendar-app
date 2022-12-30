@@ -1,0 +1,3 @@
+[submodule "mern-calendar-app-backend"]
+	path = mern-calendar-app-backend
+	url = git@github.com:raulangelj/mern-calendar-app-backend.git
