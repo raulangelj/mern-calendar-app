@@ -29,10 +29,33 @@ export const useAuthStore = () => {
     }
   };
 
+  const startSignin = async ({ name, email, password }) => {
+    dispatch(onChecking());
+    try {
+      const { data } = await calendarAPI.post("/auth/signin", {
+        name,
+        email,
+        password,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      dispatch(onLogin({ name: data.name, uid: data.uid, email }));
+    } catch (error) {
+      console.log(error);
+      const { response } = error;
+      dispatch(onLogout(response?.data?.msg || "Error on Signin"));
+      // WE USE THE TIMEOUT TO CLEAR THE ERROR AFTER SOME TIME AND ALLOW THE USER TO TRY AGAIN
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
   return {
     status,
     user,
     errorMessage,
     startLogin,
+    startSignin,
   };
 };
