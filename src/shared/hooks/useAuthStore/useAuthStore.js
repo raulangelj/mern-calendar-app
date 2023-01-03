@@ -51,11 +51,28 @@ export const useAuthStore = () => {
     }
   };
 
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return dispatch(onLogout("Token expired"));
+
+    try {
+      const { data } = await calendarAPI.get("/auth/refresh");
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      // console.log(error);
+      localStorage.clear();
+      dispatch(onLogout("Token expired"));
+    }
+  };
+
   return {
     status,
     user,
     errorMessage,
     startLogin,
     startSignin,
+    checkAuthToken,
   };
 };
