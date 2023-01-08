@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import calendarAPI from "../../../api/calendarAPI";
+import { calendarAPI } from "../../../api";
 import {
   clearErrorMessage,
   onChecking,
