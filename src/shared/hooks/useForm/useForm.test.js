@@ -22,6 +22,7 @@ describe("Testing useForm", () => {
       onInputChange: expect.any(Function),
       onResetForm: expect.any(Function),
       isFormValid: true,
+      setFormState: expect.any(Function),
     });
   });
 
