@@ -1,1 +1,1 @@
-export * from "./uiSlice";
+export * from "./uiSlice/uiSlice";
